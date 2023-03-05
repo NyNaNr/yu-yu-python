@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 
 import csv
@@ -76,6 +76,7 @@ class NgdProcessor:
         # 正規表現により数値情報を抽出する
         result = re.match('約 (.+) 件', result_stats).groups()[0]
         result = result.replace(',', '')
+        print(result)
         result = int(result)
 
         return result
@@ -97,7 +98,7 @@ class NgdProcessor:
         logfy = math.log(fy_value)
         logfxy = math.log(fxy_value)
         logN = math.log(self.INDEX_VALUE)
- 
+
         if logfx > logfy:
             max, min = logfx, logfy
         else:
@@ -173,10 +174,11 @@ class NgdProcessor:
                     }
                 )
 
-                
+
 if __name__ == '__main__':
     ngd_processor = NgdProcessor()
     ngd_processor.execute(
-        r_path="test.csv"           # 読み込み先のCSVのファイルパス
-        , w_path="test_result.csv"  # 書き込み先のCSVのファイルパス
+        r_path="test.csv",           # 読み込み先のCSVのファイルパス
+        w_path="test_result.csv"     # 書き込み先のCSVのファイルパス
     )
+
