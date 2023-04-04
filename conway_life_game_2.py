@@ -29,3 +29,22 @@ while True:  # メインプログラム
         below_coord = (y + 1) % HEIGHT
 
         # 生きた隣接セルの数をカウント
+        num_neighbors = 0
+        if current_cells[left_coord][above_coord] == '#':
+            num_neighbors += 1  # 左上が生きたセル
+        if current_cells[x][above_coord] == '#':
+            num_neighbors += 1  # 上が生きたセル
+        if current_cells[right_coord][above_coord] == '#':
+            num_neighbors += 1  # 右上が生きたセル
+        if current_cells[left_coord][y] == '#':
+            num_neighbors += 1  # 左が生きたセル
+        if current_cells[right_coord][y] == '#':
+            num_neighbors += 1  # 右が生きたセル
+        if current_cells[left_coord][below_coord] == '#':
+            num_neighbors += 1  # 左下が生きたセル
+        if current_cells[x][below_coord] == '#':
+            num_neighbors += 1  # 下が生きたセル
+        if current_cells[right_coord][below_coord] == '#':
+            num_neighbors += 1  # 右下が生きたセル
+
+        # TODO: #conwayのライフゲームのルールに基づきセルを設定
