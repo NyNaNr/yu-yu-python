@@ -10,6 +10,8 @@ import pprint
 
 '''
 
+# TODO: 型ヒントをつける
+
 
 class get_file_info:
 
@@ -68,6 +70,7 @@ class get_file_info:
         print('ファイル数', str(file_count))
         print('ファイル合計サイズ:', file_size, 'MB')
         print("実行時間（s）:", round(elapsed_time, 2), '(s)')
+        print('=====================================')
         pprint.pprint(top20_dict)
 
     def execute(self):
