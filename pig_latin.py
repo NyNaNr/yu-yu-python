@@ -1,5 +1,5 @@
 # 英語からピッグラテンに変換
-
+# TODO: テキストファイルで読み書き出来たら便利
 
 while True:
     print('Enter the Engkish message to translate into Pig Latin:')
