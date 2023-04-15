@@ -78,44 +78,44 @@ detect_date_DIY('29/02/2012')
     """
 
 
-def detect_date(s):
-    date_regex = re.compile(r'(\d{2})/(\d{2})/(\d{4})')
-    for day, month, year in date_regex.findall(s):
-        day = int(day)
-        month = int(month)
-        year = int(year)
+# 強いパスワードの検出
+'''
+強いパスワードとは、8文字以上、大文字小文字を含み、1つ以上の数字を含むものらしい。
+正規表現で、強いパスワードを検出するプログラムを作る。
 
-        if year < 1000 or year > 2999:
-            print(f'不正な年です {year}')
-            return None
+設計
+正規表現をつくる。len() >= 8 ,[a-z], [A-Z], \d{} <= バラバラで一つずつの正規表現を作って、すべてtrueならＯＫ？
+当てはまる場合、print(強い！)
+当てはまらないprint(yowai)
 
-        if month < 1 or month > 12:
-            print(f'不正な月です {month}')
-            return None
-
-        if month == 2:
-            if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:
-                max_day = 29
-            else:
-                max_day = 28
-        elif month in (4, 6, 9, 11):
-            max_day = 30
-        else:
-            max_day = 31
-        if day < 1 or day > max_day:
-            print(f'不正な日です {day}')
-            return None
-        return day, month, year
-    return None
+'''
+print()
 
 
-if __name__ == '__main__':
-    assert detect_date('Today is 15/08/1945.') == (15, 8, 1945)
-    assert detect_date('There is no 31/02/2020.') == None
-    assert detect_date('There is no 31/04/2021.') == None
-    assert detect_date('There is no 15/00/1945.') == None
-    assert detect_date('There is no 15/13/1945.') == None
-    assert detect_date('There is no 00/08/1945.') == None
-    assert detect_date('There is no 32/18/1945.') == None
-    assert detect_date('There is no 01/08/9999.') == None
-    assert detect_date('Bad format: 1945/08/15.') == None
+def detect_strong_password(sp):
+    number_in_pass_regex = re.compile(r'\d')
+    upper_in_pass_regex = re.compile(r'[A-Z]')
+    lower_in_pass_regex = re.compile(r'[a-z]')
+
+    if len(sp) < 8:
+        print('8文字以上にしてください。')
+
+    if number_in_pass_regex.search(sp) == None:
+        print('数字を1文字以上含んでください。')
+    if upper_in_pass_regex.search(sp) == None:
+        print('大文字を1文字以上含んでください。')
+    if lower_in_pass_regex.search(sp) == None:
+        print('小文字を1文字以上含んでください。')
+
+    if (number_in_pass_regex.search(sp)) and (upper_in_pass_regex.search(sp)) and (lower_in_pass_regex.search(sp)) and (len(sp) > 7):
+        print('強いパスワードです。')
+    else:
+        print('弱いパスワードです。')
+
+
+detect_strong_password('552HGhg55')
+
+'''
+反省。自分でできた！
+number_in_pass_regex = re.compile(r'\d') を間違えてnumber_in_pass_regex = re.compile(r'\d{}')としていた。 これではエラーが出る。\d{3}数字が三回出現するように、{}には数字を入れる。
+'''
