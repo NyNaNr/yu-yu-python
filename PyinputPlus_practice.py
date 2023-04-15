@@ -12,28 +12,28 @@ import pyinputplus as pyip
 class SandwichShop:
     # menu
     def __init__(self):
-        self.type_of_bread = {'小麦パン': 0, '白パン': 20, 'サワー種': 60}
+        self.type_of_bread = {'小麦パン': 100, '白パン': 200, 'サワー種': 300}
         self.type_of_protain = {'チキン': 100, 'ターキー': 150, 'ハム': 120, '豆腐': 50}
         self.type_of_cheese = {'チェダー': 100, 'スイス': 200, 'モッツアレラ': 300}
         self.type_of_topping = {'マヨネーズ': 20, 'からし': 50, 'レタス': 80, 'トマト': 100}
-        # self.type_of_bread_list =[]
-        # self.type_of_protain_list = []
-        # self.type_of_cheese_list =[]
-        # self.type_of_topping_list =[]
         self.ask_list = [self.type_of_bread, self.type_of_protain,
                          self.type_of_cheese, self.type_of_topping]
 
-    def user_input(self, list_name):
-        decided_bread = pyip.inputMenu(list_name)
-
-    def make_key_list(self):
+    def make_key_list_and_input(self):
+        # 辞書からキーだけを取り出してpyipに適したリストを作成。
+        sum = 0
         for each_type in self.ask_list:
-            list_name = str(each_type) + '_list'
             list_name = []
+
             for key in each_type.keys():
                 list_name.append(key)
-            return list_name
+            # for文で作成したリストと、辞書名を回しつつ、ユーザーに入力を求める。
+            value = each_type.get(pyip.inputMenu(list_name))
+            print(f'{value}円です')
+            sum += value
+
+        print(f'支払い金額は{sum}円です。')
 
 
 sandwichshop = SandwichShop()
-sandwichshop.make_key_list()
+sandwichshop.make_key_list_and_input()
