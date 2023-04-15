@@ -21,7 +21,7 @@ class SandwichShop:
 
     def main_list_input(self):
         # 辞書からキーだけを取り出してpyipに適したリストを作成。
-        main_sum = 0  # sum = 0 はfor文の外に書かないと回るたびにsumに0が代入される。
+        main_sum = 0  # main_sum = 0 はfor文の外に書かないと回るたびにmain_sumに0が代入される。
         for each_type in self.main_list:
             list_name = []
 
@@ -36,7 +36,7 @@ class SandwichShop:
 
     def optional_list_input(self):
         # 辞書からキーだけを取り出してpyipに適したリストを作成。
-        optional_sum = 0  # sum = 0 はfor文の外に書かないと回るたびにsumに0が代入される。
+        optional_sum = 0  # optional_sum = 0 はfor文の外に書かないと回るたびにoptinal_sumに0が代入される。
         for each_type in self.optional_list:
             list_name = []
             for key in each_type.keys():
@@ -47,8 +47,6 @@ class SandwichShop:
                 value = each_type.get(pyip.inputMenu(list_name))
                 print(f'{value}円です')
                 optional_sum += value
-            else:
-                break
         return optional_sum
 
     def sum_two(self, main_sum, optional_sum):
@@ -66,10 +64,10 @@ class SandwichShop:
         print(f'支払い金額は税込み{total_price}円です。')
 
     def execute(self):
-        main_sum = sandwichshop.main_list_input()
-        optional_sum = sandwichshop.optional_list_input()
-        total_price = sandwichshop.sum_two(main_sum, optional_sum)
-        sandwichshop.how_many(total_price)
+        main_sum = self.main_list_input()
+        optional_sum = self.optional_list_input()
+        total_price = self.sum_two(main_sum, optional_sum)
+        self.how_many(total_price)
 
 
 sandwichshop = SandwichShop()
