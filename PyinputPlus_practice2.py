@@ -3,9 +3,9 @@ import pyinputplus as pyip
 
 """
     設計
-    メニューの辞書をそれぞれ作成
-    入力＝＞辞書から値段を取得　入力関数と、値取得関数を分ける。
-    計算
+    メニューの辞書をそれぞれの選択項目ごとに作成。
+    その辞書のキーのみ取り出しpyipに必要なリストに変換
+    ユーザーの選択したキーを元にバリューを取り出し、足していく。
     """
 
 
@@ -54,6 +54,7 @@ class SandwichShop:
 
         total_price = (main_sum + optional_sum)*JAPAN_TAX_RATE
         total_price = round(total_price)
+        print(f'小計は税込み{total_price}円です。')
         return total_price
 
     def how_many(self, total_price):
