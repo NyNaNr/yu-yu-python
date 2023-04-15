@@ -21,7 +21,7 @@ class SandwichShop:
 
     def make_key_list_and_input(self):
         # 辞書からキーだけを取り出してpyipに適したリストを作成。
-        sum = 0
+        sum = 0　  # sum = 0 はfor文の外に書かないと回るたびにsumに0が代入される。
         for each_type in self.ask_list:
             list_name = []
 
