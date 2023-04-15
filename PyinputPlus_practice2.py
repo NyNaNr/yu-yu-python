@@ -39,11 +39,10 @@ class SandwichShop:
         optional_sum = 0  # sum = 0 はfor文の外に書かないと回るたびにsumに0が代入される。
         for each_type in self.optional_list:
             list_name = []
+            for key in each_type.keys():
+                list_name.append(key)
             # ユーザーにオプションを提示し、必要か問う
-            if (pyip.inputYesNo(f'{str(each_type)}は必要ですか？yesかnoでお答えください。')):
-
-                for key in each_type.keys():
-                    list_name.append(key)
+            if (pyip.inputYesNo(f'{str(each_type)}は必要ですか？yesかnoでお答えください。')) == 'yes':
                 # for文で作成したリストと、辞書名を回しつつ、ユーザーに入力を求める。
                 value = each_type.get(pyip.inputMenu(list_name))
                 print(f'{value}円です')
@@ -52,7 +51,7 @@ class SandwichShop:
                 break
         return optional_sum
 
-    def sum_two(salf, main_sum, optional_sum):
+    def sum_two(self, main_sum, optional_sum):
         JAPAN_TAX_RATE = 1.08
 
         total_price = (main_sum + optional_sum)*JAPAN_TAX_RATE
@@ -62,7 +61,7 @@ class SandwichShop:
     def how_many(self, total_price):
 
         count = pyip.inputInt('何個入りますか？', min=1)
-        total_price = total_price * count
+        total_price = round(total_price * count)
 
         print(f'支払い金額は税込み{total_price}円です。')
 
