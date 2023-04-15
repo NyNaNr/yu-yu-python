@@ -16,13 +16,13 @@ class SandwichShop:
         self.type_of_protain = {'チキン': 100, 'ターキー': 150, 'ハム': 120, '豆腐': 50}
         self.type_of_cheese = {'チェダー': 100, 'スイス': 200, 'モッツアレラ': 300}
         self.type_of_topping = {'マヨネーズ': 20, 'からし': 50, 'レタス': 80, 'トマト': 100}
-        self.ask_list = [self.type_of_bread, self.type_of_protain,
-                         self.type_of_cheese, self.type_of_topping]
+        self.main_list = [self.type_of_bread, self.type_of_protain]
+        self.optional_list = [self.type_of_cheese, self.type_of_topping]
 
-    def make_key_list_and_input(self):
+    def main_list_input(self):
         # 辞書からキーだけを取り出してpyipに適したリストを作成。
-        sum = 0  # sum = 0 はfor文の外に書かないと回るたびにsumに0が代入される。
-        for each_type in self.ask_list:
+        main_sum = 0  # sum = 0 はfor文の外に書かないと回るたびにsumに0が代入される。
+        for each_type in self.main_list:
             list_name = []
 
             for key in each_type.keys():
@@ -30,10 +30,48 @@ class SandwichShop:
             # for文で作成したリストと、辞書名を回しつつ、ユーザーに入力を求める。
             value = each_type.get(pyip.inputMenu(list_name))
             print(f'{value}円です')
-            sum += value
+            main_sum += value
 
-        print(f'支払い金額は{sum}円です。')
+        return main_sum
+
+    def optional_list_input(self):
+        # 辞書からキーだけを取り出してpyipに適したリストを作成。
+        optional_sum = 0  # sum = 0 はfor文の外に書かないと回るたびにsumに0が代入される。
+        for each_type in self.optional_list:
+            list_name = []
+            # ユーザーにオプションを提示し、必要か問う
+            if (pyip.inputYesNo(f'{str(each_type)}は必要ですか？yesかnoでお答えください。')):
+
+                for key in each_type.keys():
+                    list_name.append(key)
+                # for文で作成したリストと、辞書名を回しつつ、ユーザーに入力を求める。
+                value = each_type.get(pyip.inputMenu(list_name))
+                print(f'{value}円です')
+                optional_sum += value
+            else:
+                break
+        return optional_sum
+
+    def sum_two(salf, main_sum, optional_sum):
+        JAPAN_TAX_RATE = 1.08
+
+        total_price = (main_sum + optional_sum)*JAPAN_TAX_RATE
+        total_price = round(total_price)
+        return total_price
+
+    def how_many(self, total_price):
+
+        count = pyip.inputInt('何個入りますか？', min=1)
+        total_price = total_price * count
+
+        print(f'支払い金額は税込み{total_price}円です。')
+
+    def execute(self):
+        main_sum = sandwichshop.main_list_input()
+        optional_sum = sandwichshop.optional_list_input()
+        total_price = sandwichshop.sum_two(main_sum, optional_sum)
+        sandwichshop.how_many(total_price)
 
 
 sandwichshop = SandwichShop()
-sandwichshop.make_key_list_and_input()
+sandwichshop.execute()
