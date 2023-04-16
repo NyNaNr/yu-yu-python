@@ -2,6 +2,7 @@
 # クリップボードのテキストの保存・復元
 # How to use
 # py.exe mcb.pyw save <keyword> クリップボードにキーワードを紐づけてコピー
+# py.exe mcb.pyw delete <keyword> キーワードと紐づけされた値を削除
 # py.exe mcb.pyw <keyword> キーワードに紐づけられたテキストをクリップボードにコピー
 # py.exe mcb.pyw list 全キーワードをクリップボードにコピー
 
@@ -31,13 +32,13 @@ elif len(sys.argv) == 2:
         print(f'クリップボードに{sys.argv[1]}をコピーしました。')
     else:
         print(
-            f'{sys.argv[1]}は保存されていません。 コマンドライン上で　save {sys.argv[1]} をしてください。')
+            f'{sys.argv[1]}は保存されていません。 コマンドライン上でsave {sys.argv[1]} をしてください。')
 mcb_shelve.close()
 
 
 '''
 反省
-if sys.argv[1].lower() == 'list':　である必要があるのに
+if sys.argv[1].lower() == 'list':である必要があるのに
 間違えてif sys.argv[1].lower == list:
 としてしまっていた。
 lowerの後ろに()がないと動かないし、'list'と引用府で囲わないと、文字として扱われない。
