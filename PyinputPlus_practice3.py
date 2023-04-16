@@ -58,48 +58,48 @@ def sandwich_maker():
     is_tomato = pyip.inputYesNo('トマトは必要ですか？Yes or No:') == 'yes'
 
     # 値段の表示
-    sum = 0
-    bread_price = PRICES.get(bread)
-    sum += bread_price
+    sum_price = 0
+    bread_price = PRICES.get(bread, 0)
+    sum_price += bread_price
     print(f'パンの値段は{bread_price}円です。')
 
-    meat_price = PRICES.get(meat)
-    sum += meat_price
+    meat_price = PRICES.get(meat, 0)
+    sum_price += meat_price
     print(f'お肉の値段は{meat_price}円です。')
 
     cheese_price = 0
     if is_cheese == 'yes':
-        cheese_price = PRICES.get(cheese)
-        sum += cheese_price
+        cheese_price = PRICES.get(cheese, 0)
+        sum_price += cheese_price
         print(f'チーズの値段は{cheese_price}円です。')
 
     if is_mayo:
-        mayo_price = PRICES.get('マヨネーズ')
-        sum += mayo_price
+        mayo_price = PRICES.get('マヨネーズ', 0)
+        sum_price += mayo_price
         print(f'マヨネーズの値段は{mayo_price}円です。')
 
     if is_mastard:
-        mastard_price = PRICES.get('マスタード')
-        sum += mastard_price
+        mastard_price = PRICES.get('マスタード', 0)
+        sum_price += mastard_price
         print(f'マスタードの値段は{mastard_price}円です。')
 
     if is_lettuce:
-        lettuce_price = PRICES.get('レタス')
-        sum += lettuce_price
+        lettuce_price = PRICES.get('レタス', 0)
+        sum_price += lettuce_price
         print(f'レタスの値段は{lettuce_price}円です。')
 
     if is_tomato:
-        tomato_price = PRICES.get('トマト')
-        sum += tomato_price
+        tomato_price = PRICES.get('トマト', 0)
+        sum_price += tomato_price
         print(f'トマトの値段は{tomato_price}円です。')
 
     JAPAN_TAX_RATE = 1.08
-    sum = round(sum * JAPAN_TAX_RATE)
-    print(f'小計は税込み{sum}円です')
+    sum_price = round(sum_price * JAPAN_TAX_RATE)
+    print(f'小計は税込み{sum_price}円です')
 
     count = 0
     count = pyip.inputInt(prompt='何個購入されますか？', min=1)
-    print(f'合計は{sum*count}円です。')
+    print(f'合計は{sum_price*count}円です。')
 
 
 sandwich_maker()
