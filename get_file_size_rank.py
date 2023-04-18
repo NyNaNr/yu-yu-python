@@ -13,7 +13,7 @@ import pprint
 # TODO: 型ヒントをつける
 
 
-class get_file_info:
+class Get_file_info:
 
     def ask_for_folder_path(self):
         while True:
@@ -41,15 +41,15 @@ class get_file_info:
         for file_path in file_paths:
             file_count += 1
             each_file_path[file_path] = str(
-                round(int(os.path.getsize(file_path)) / (1024*1024), 2)
-            ) + 'MB'
+                int(os.path.getsize(file_path)) / (1024*1024)
+            )
             file_size += os.path.getsize(file_path)
         return each_file_path, file_size, file_count
 
     def convert_to_byte_to_mb(self, file_size):
         # byte => MB & round
-        file_size /= (1024*1024)
-        file_size = round(file_size, 2)
+        # file_size /= (1024*1024)
+        # file_size = round(file_size, 2)
         return file_size
 
     def measure_processing_time(self, start_time):
@@ -60,7 +60,8 @@ class get_file_info:
     def sort_dict_by_size_and_get_top_20(self, each_file_path):
         # 辞書を値をサイズ順にソートする
         sorted_dict = sorted(each_file_path.items(),
-                             key=lambda x: x[1], reverse=True)
+                             key=lambda x: float(x[1]), reverse=True)  # 詰まったPoint 値は、str型なので、float型に変換しとかないと文字列としての比較になってしまう。
+
         # トップ20を取得する
         top20_dict = dict(sorted_dict[:20])
         return top20_dict
@@ -68,7 +69,7 @@ class get_file_info:
     def print_results(self, file_count, file_size, elapsed_time, top20_dict):
         print('=====================================')
         print('ファイル数', str(file_count))
-        print('ファイル合計サイズ:', file_size, 'MB')
+        print('ファイル合計サイズ:', round(file_size, 2), 'MB')
         print("実行時間（s）:", round(elapsed_time, 2), '(s)')
         print('=====================================')
         pprint.pprint(top20_dict)
@@ -79,11 +80,12 @@ class get_file_info:
         each_file_path, file_size, file_count = self.make_dict_filepath_and_size(
             file_paths)
         file_size = self.convert_to_byte_to_mb(file_size)
-        elapsed_time = self.measure_processing_time(start_time)
+
         top20_dict = self.sort_dict_by_size_and_get_top_20(each_file_path)
+        elapsed_time = self.measure_processing_time(start_time)
         self.print_results(file_count, file_size, elapsed_time, top20_dict)
 
 
 if __name__ == '__main__':
-    get_file_info = get_file_info()
+    get_file_info = Get_file_info()
     get_file_info.execute()
